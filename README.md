@@ -3,3 +3,5 @@
 npm init -y
 npm install express sequelize mysql2
 npm install dotenv
+
+npm run seed
