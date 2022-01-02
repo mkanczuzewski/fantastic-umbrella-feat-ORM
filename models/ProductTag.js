@@ -1,9 +1,13 @@
+// import important parts of sequelize library
 const { Model, DataTypes } = require('sequelize');
 
+// import our database connection from config.js
 const sequelize = require('../config/connection');
 
-class ProductTag extends Model {}
+// Initialize Product model (table) by extending off Sequelize's Model class
+class ProductTag extends Model { }
 
+// set up fields and rules for ProductTag model
 ProductTag.init(
   {
     id:
@@ -16,10 +20,20 @@ ProductTag.init(
     product_id:
     {
       type: DataTypes.INTEGER,
+      references: 
+      {
+        model: 'product',
+        key: 'id'
+      }
     },
     tag_id:
     {
       type: DataTypes.INTEGER,
+      references: 
+      {
+        model: 'tag',
+        key: 'id'
+      }
     }
   },
   {
@@ -27,13 +41,8 @@ ProductTag.init(
     timestamps: false,
     freezeTableName: true,
     underscored: true,
-    modelName: 'product_tag',
+    modelName: 'ProductTag',
   }
 );
 
-Tag.belongsToMany(Product, { through: 'ProductTag' });
-Product.belongsToMany(Tag, { through: 'ProductTag' });
-
 module.exports = ProductTag;
-
-7
